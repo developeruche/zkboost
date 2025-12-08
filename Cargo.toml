@@ -1,8 +1,21 @@
 [workspace]
-
+members = ["bins/poost-cli", "bins/client-cli", "crates/poost-client", "crates/poost-core", "crates/poost-server"]
 
 
 
 [workspace.dependencies]
+# ere
+ere-zkvm-interface = { git = "https://github.com/eth-applied-research-group/ere", rev = "6266b242edad2d315b753155a6538ea900be2b9c", package = "ere-zkvm-interface" }
+ere-platform-trait = { git = "https://github.com/eth-applied-research-group/ere", rev = "6266b242edad2d315b753155a6538ea900be2b9c" }
+ere-dockerized = { git = "https://github.com/eth-applied-research-group/ere", rev = "6266b242edad2d315b753155a6538ea900be2b9c", package = "ere-dockerized" }
+ere-io = { git = "https://github.com/eth-applied-research-group/ere", rev = "6266b242edad2d315b753155a6538ea900be2b9c", package = "ere-io" }
 
+#serde
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
 
+#tokio
+tokio = { version = "1.48.0", features = ["full"] }
+
+#in-house-crates
+poost-core = { path = "./crates/poost-core" }
