@@ -1,7 +1,22 @@
-use std::sync::Arc;
-
+//! # Common Types for zkVM Operations
+//!
+//! This module provides the foundational types and abstractions for working with
+//! zero-knowledge virtual machines (zkVMs) in the poost-core library.
+//!
+//! ## Overview
+//!
+//! The module defines:
+//! - [`ProgramID`] - A unique identifier for zkVM programs
+//! - [`zkVMVendor`] - An enumeration of supported zkVM implementations
+//! - [`zkVMInstance`] - A runtime wrapper combining a vendor type with its VM instance
+//!
+//! ## Supported zkVM Vendors
+//!
+//! Currently supported vendors include: Airbender, Jolt, Miden, Nexus, OpenVM,
+//! Pico, Risc0, SP1, Ziren, and Zisk.
 use ere_zkvm_interface::zkVM;
 use serde::{Deserialize, Serialize};
+use std::sync::Arc;
 
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Hash)]
 #[serde(transparent)]
