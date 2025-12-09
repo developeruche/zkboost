@@ -1,7 +1,9 @@
 //! Common Types for zkVM Operations in Poost
+use ere_dockerized::zkVMKind;
 use ere_zkvm_interface::zkVM;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
+use sha2::{Sha256, Digest};
 
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize, Hash)]
 #[serde(transparent)]
@@ -47,6 +49,23 @@ impl std::fmt::Display for zkVMVendor {
     }
 }
 
+impl From<zkVMVendor> for zkVMKind {
+    fn from(vendor: zkVMVendor) -> Self {
+            match vendor {
+                zkVMVendor::Airbender => zkVMKind::Airbender,
+                zkVMVendor::Jolt => zkVMKind::Jolt,
+                zkVMVendor::Miden => zkVMKind::Miden,
+                zkVMVendor::Nexus => zkVMKind::Nexus,
+                zkVMVendor::Openvm => zkVMKind::OpenVM,
+                zkVMVendor::Pico => zkVMKind::Pico,
+                zkVMVendor::Risc0 => zkVMKind::Risc0,
+                zkVMVendor::SP1 => zkVMKind::SP1,
+                zkVMVendor::Ziren => zkVMKind::Ziren,
+                zkVMVendor::Zisk => zkVMKind::Zisk,
+            }
+        }
+}
+
 impl std::str::FromStr for zkVMVendor {
     type Err = String;
 
@@ -70,17 +89,23 @@ impl std::str::FromStr for zkVMVendor {
     }
 }
 
-// TODO: We may use a hash of the elf binary or program
-// TODO: in which case, we would remove this From impl
-impl From<zkVMVendor> for ProgramID {
-    fn from(value: zkVMVendor) -> Self {
-        ProgramID(format!("{}", value))
-    }
-}
 
 impl zkVMInstance {
     pub fn new(vendor: zkVMVendor, vm: Arc<dyn zkVM + Send + Sync>) -> Self {
         Self { vendor, vm }
+    }
+}
+
+impl ProgramID {
+    pub fn new(zkvm_vendor_name: String, elf_bytes: Vec<u8>) -> Result<Self, anyhow::Error> {
+        let mut hasher = Sha256::new();
+        hasher.update(zkvm_vendor_name.as_bytes());
+        hasher.update(&elf_bytes);
+        
+        let hash_result = hasher.finalize();
+        let hash_hex = hex::encode(hash_result);
+        
+        Ok(Self(hash_hex))
     }
 }
 

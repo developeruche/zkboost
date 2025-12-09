@@ -1,0 +1,14 @@
+use axum::Json;
+use poost_core::{info::{get_cpu_info, get_gpu_info, get_memory_info, get_os_info}, primitives::info::ServerInfoResponse};
+use tracing::instrument;
+
+#[instrument]
+pub async fn get_server_info() -> Json<ServerInfoResponse> {
+    Json(ServerInfoResponse {
+        cpu: get_cpu_info(),
+        memory: get_memory_info(),
+        os: get_os_info(),
+        architecture: std::env::consts::ARCH.into(),
+        gpu: get_gpu_info(),
+    })
+}

@@ -6,7 +6,11 @@ edition = "2024"
 [dependencies]
 serde.workspace = true
 ere-zkvm-interface.workspace = true
+ere-dockerized.workspace = true
 indexmap.workspace = true
 anyhow.workspace = true
 sysinfo = "0.30"
 wgpu = { version = "25" }
+sha2 = "0.10"
+hex = "0.4"
+serde_json.workspace = true
