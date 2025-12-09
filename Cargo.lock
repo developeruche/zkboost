@@ -1433,6 +1433,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "axum",
+ "ere-zkvm-interface",
  "poost-core",
  "tokio",
  "tower-http",

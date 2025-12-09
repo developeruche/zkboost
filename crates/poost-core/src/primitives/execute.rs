@@ -15,4 +15,5 @@ pub struct ExecuteResponse {
     pub total_num_cycles: u64,
     pub region_cycles: IndexMap<String, u64>,
     pub execution_time_duration: Duration,
+    pub public_input: Vec<u8>,
 }
