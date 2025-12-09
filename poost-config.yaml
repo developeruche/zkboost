@@ -1,0 +1,7 @@
+# Poost Server Configuration
+server_url: "127.0.0.1:3000"
+
+program_instances:
+  - name: "fibonacci"
+    zkvm_name: "sp1"
+    program_path: "./guest-programs/simple-program/sp1-fib"

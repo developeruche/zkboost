@@ -4,3 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+clap = { version = "4", features = ["derive"] }
+serde_yaml = "0.9"
+tokio.workspace = true
+poost-core.workspace = true
+poost-server = { path = "../../crates/poost-server" }
+tracing.workspace = true
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+anyhow.workspace = true
