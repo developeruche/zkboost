@@ -1,9 +1,8 @@
+use crate::app_state::AppState;
 use axum::{Json, extract::State, http::StatusCode};
 use ere_zkvm_interface::Input;
 use poost_core::primitives::execute::{ExecuteRequest, ExecuteResponse};
 use tracing::instrument;
-use crate::app_state::AppState;
-
 
 #[instrument(skip_all)]
 pub async fn execute_program(
@@ -25,7 +24,6 @@ pub async fn execute_program(
             format!("Failed to execute program: {}", e),
         )
     })?;
-    
 
     Ok(Json(ExecuteResponse {
         program_id,

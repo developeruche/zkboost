@@ -1,7 +1,6 @@
 //! Primitives for the Info route handler in the poost server
-use serde::Serialize;
 use crate::program::ProgramInstanceResponse;
-
+use serde::Serialize;
 
 #[derive(Debug, Serialize)]
 pub struct ServerInfoResponse {

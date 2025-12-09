@@ -1,9 +1,6 @@
+use crate::primitives::info::{CpuInfo, MemoryInfo, OsInfo};
 use sysinfo::System;
 use wgpu::{Backends, Instance, InstanceDescriptor};
-use crate::primitives::info::{CpuInfo, MemoryInfo, OsInfo};
-
-
-
 
 /// Get informatio about the CPU
 /// Note: unfortunately this has been unreliable on ARM macs and AWS machines

@@ -1,7 +1,6 @@
+use crate::{common::ProgramID, program::ProgramInput};
 use ere_zkvm_interface::{Proof, ProofKind};
 use serde::{Deserialize, Serialize};
-use crate::{common::ProgramID, program::ProgramInput};
-
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ProveRequest {

@@ -1,7 +1,6 @@
+use crate::common::ProgramID;
 use ere_zkvm_interface::Proof;
 use serde::{Deserialize, Serialize};
-use crate::common::ProgramID;
-
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct VerifyRequest {

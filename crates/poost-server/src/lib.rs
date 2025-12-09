@@ -1,3 +1,3 @@
 pub mod app_state;
-pub mod server;
 pub mod handlers;
+pub mod server;
