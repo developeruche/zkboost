@@ -3,7 +3,7 @@ use axum::{Router, http::Method, routing::get};
 use poost_core::config::PoostConfig;
 use tokio::net::TcpListener;
 use tower_http::{cors::{Any, CorsLayer}, trace::TraceLayer};
-use crate::app_state::AppState;
+use crate::{app_state::AppState, handlers::info::get_server_info};
 
 
 pub async fn run_server(config: &PoostConfig, app_state: AppState) -> anyhow::Result<()>{
@@ -14,7 +14,7 @@ pub async fn run_server(config: &PoostConfig, app_state: AppState) -> anyhow::Re
 
     let router = Router::new()
         .route("/", get(|| async {"Poost Server"}))
-        .route("/info", get(|| async {"Poost Server"}))
+        .route("/info", get(get_server_info))
         .route("/execute", get(|| async {"Poost Server"}))
         .route("/prove", get(|| async {"Poost Server"}))
         .route("/verify", get(|| async {"Poost Server"}))

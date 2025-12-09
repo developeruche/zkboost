@@ -3,7 +3,7 @@ use poost_core::{common::ProgramID, config::PoostConfig, program::ProgramInstanc
 use std::{collections::HashMap, sync::Arc};
 use tokio::sync::RwLock;
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct AppState {
     pub programs: Arc<RwLock<HashMap<ProgramID, ProgramInstance>>>,
 }

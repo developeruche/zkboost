@@ -29,7 +29,17 @@ pub enum zkVMVendor {
 #[allow(non_camel_case_types)]
 pub struct zkVMInstance {
     pub vendor: zkVMVendor,
+    #[allow(dead_code)]
     pub vm: Arc<dyn zkVM + Send + Sync>,
+}
+
+impl std::fmt::Debug for zkVMInstance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("zkVMInstance")
+            .field("vendor", &self.vendor)
+            .field("vm", &"<dyn zkVM>")
+            .finish()
+    }
 }
 
 impl std::fmt::Display for zkVMVendor {

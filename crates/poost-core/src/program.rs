@@ -12,16 +12,34 @@ pub struct ProgramInput {
     pub input: Vec<u8>,
 }
 
+#[derive(Debug)]
 pub struct ProgramInstance {
     pub name: String,
     pub program_id: ProgramID,
     pub zkvm_instance: zkVMInstance
 }
 
+#[derive(Debug, Deserialize, Serialize, Clone)]
+pub struct ProgramInstanceResponse {
+    pub name: String,
+    pub program_id: ProgramID,
+    pub zkvm_instance: zkVMVendor,
+}
+
 impl From<ProgramInput> for Input {
     fn from(value: ProgramInput) -> Self {
         let input = Input::new();
         input.with_prefixed_stdin(value.input)
+    }
+}
+
+impl From<&ProgramInstance> for ProgramInstanceResponse {
+    fn from(value: &ProgramInstance) -> Self {
+        ProgramInstanceResponse {
+            name: value.name.clone(),
+            program_id: value.program_id.clone(),
+            zkvm_instance: value.zkvm_instance.vendor.clone(),
+        }
     }
 }
 

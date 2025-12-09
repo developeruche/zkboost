@@ -1,5 +1,6 @@
 //! Primitives for the Info route handler in the poost server
 use serde::Serialize;
+use crate::program::ProgramInstanceResponse;
 
 
 #[derive(Debug, Serialize)]
@@ -9,6 +10,7 @@ pub struct ServerInfoResponse {
     pub os: OsInfo,
     pub architecture: String,
     pub gpu: String,
+    pub program_instances: Vec<ProgramInstanceResponse>,
 }
 
 #[derive(Debug, Serialize)]
