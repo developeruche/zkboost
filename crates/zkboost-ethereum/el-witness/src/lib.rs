@@ -1,7 +1,5 @@
 //! zkVM input generation for Ethereum Execution Layer stateless validation.
 
-#![cfg_attr(not(test), warn(unused_crate_dependencies))]
-
 use benchmark_runner::stateless_validator::{ethrex, reth};
 use reth_stateless::StatelessInput;
 use witness_generator::StatelessValidationFixture;
