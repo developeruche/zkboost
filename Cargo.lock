@@ -1412,7 +1412,7 @@ checksum = "0e050f626429857a27ddccb31e0aca21356bfa709c04041aefddac081a8f068a"
 [[package]]
 name = "benchmark-runner"
 version = "0.1.0"
-source = "git+https://github.com/eth-act/zkevm-benchmark-workload?rev=e3ac2ded0678377ec09d781f1331159e3c36633d#e3ac2ded0678377ec09d781f1331159e3c36633d"
+source = "git+https://github.com/developeruche/zkevm-benchmark-workload?branch=feat%2Frefactor-state-val-fn#75fb2512703e71864d122c26942df21e86c1117e"
 dependencies = [
  "alloy-eips",
  "alloy-genesis",
@@ -1421,7 +1421,7 @@ dependencies = [
  "auto_impl",
  "block-encoding-length-guest",
  "ere-dockerized 0.0.15 (git+https://github.com/eth-applied-research-group/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745)",
- "ere-io",
+ "ere-io 0.0.15 (git+https://github.com/eth-applied-research-group/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745)",
  "ere-platform-trait",
  "ere-zkvm-interface 0.0.15 (git+https://github.com/eth-applied-research-group/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745)",
  "ethrex-common",
@@ -1570,9 +1570,9 @@ dependencies = [
 [[package]]
 name = "block-encoding-length-guest"
 version = "0.1.0"
-source = "git+https://github.com/eth-act/zkevm-benchmark-workload?rev=e3ac2ded0678377ec09d781f1331159e3c36633d#e3ac2ded0678377ec09d781f1331159e3c36633d"
+source = "git+https://github.com/developeruche/zkevm-benchmark-workload?branch=feat%2Frefactor-state-val-fn#75fb2512703e71864d122c26942df21e86c1117e"
 dependencies = [
- "ere-io",
+ "ere-io 0.0.15 (git+https://github.com/eth-applied-research-group/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745)",
  "ere-platform-trait",
  "ethereum_ssz",
  "guest-libs",
@@ -2946,6 +2946,11 @@ dependencies = [
 [[package]]
 name = "ere-io"
 version = "0.0.15"
+source = "git+https://github.com/eth-act/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745#d15d36aa0a5d552a5159087884e7bea9ea74c745"
+
+[[package]]
+name = "ere-io"
+version = "0.0.15"
 source = "git+https://github.com/eth-applied-research-group/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745#d15d36aa0a5d552a5159087884e7bea9ea74c745"
 dependencies = [
  "bincode 2.0.1",
@@ -3170,9 +3175,9 @@ dependencies = [
 [[package]]
 name = "ethrex-guest"
 version = "0.1.0"
-source = "git+https://github.com/eth-act/zkevm-benchmark-workload?rev=e3ac2ded0678377ec09d781f1331159e3c36633d#e3ac2ded0678377ec09d781f1331159e3c36633d"
+source = "git+https://github.com/developeruche/zkevm-benchmark-workload?branch=feat%2Frefactor-state-val-fn#75fb2512703e71864d122c26942df21e86c1117e"
 dependencies = [
- "ere-io",
+ "ere-io 0.0.15 (git+https://github.com/eth-applied-research-group/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745)",
  "ere-platform-trait",
  "ethrex-common",
  "guest-libs",
@@ -3936,13 +3941,13 @@ dependencies = [
 [[package]]
 name = "guest-libs"
 version = "0.1.0"
-source = "git+https://github.com/eth-act/zkevm-benchmark-workload?rev=e3ac2ded0678377ec09d781f1331159e3c36633d#e3ac2ded0678377ec09d781f1331159e3c36633d"
+source = "git+https://github.com/developeruche/zkevm-benchmark-workload?branch=feat%2Frefactor-state-val-fn#75fb2512703e71864d122c26942df21e86c1117e"
 dependencies = [
  "alloy-consensus",
  "alloy-eips",
  "alloy-primitives",
  "anyhow",
- "ere-io",
+ "ere-io 0.0.15 (git+https://github.com/eth-applied-research-group/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745)",
  "ere-platform-trait",
  "ethereum_ssz",
  "ethereum_ssz_derive",
@@ -7772,10 +7777,10 @@ dependencies = [
 [[package]]
 name = "reth-guest"
 version = "0.1.0"
-source = "git+https://github.com/eth-act/zkevm-benchmark-workload?rev=e3ac2ded0678377ec09d781f1331159e3c36633d#e3ac2ded0678377ec09d781f1331159e3c36633d"
+source = "git+https://github.com/developeruche/zkevm-benchmark-workload?branch=feat%2Frefactor-state-val-fn#75fb2512703e71864d122c26942df21e86c1117e"
 dependencies = [
  "alloy-primitives",
- "ere-io",
+ "ere-io 0.0.15 (git+https://github.com/eth-applied-research-group/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745)",
  "ere-platform-trait",
  "guest-libs",
  "k256",
@@ -11837,7 +11842,7 @@ checksum = "f17a85883d4e6d00e8a97c586de764dabcc06133f7f1d55dce5cdc070ad7fe59"
 [[package]]
 name = "witness-generator"
 version = "0.1.0"
-source = "git+https://github.com/eth-act/zkevm-benchmark-workload?rev=e3ac2ded0678377ec09d781f1331159e3c36633d#e3ac2ded0678377ec09d781f1331159e3c36633d"
+source = "git+https://github.com/developeruche/zkevm-benchmark-workload?branch=feat%2Frefactor-state-val-fn#75fb2512703e71864d122c26942df21e86c1117e"
 dependencies = [
  "alloy-eips",
  "alloy-genesis",
@@ -12050,7 +12055,11 @@ dependencies = [
 name = "zkboost-ethereum-el-witness"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
+ "benchmark-runner",
+ "ere-io 0.0.15 (git+https://github.com/eth-act/ere?rev=d15d36aa0a5d552a5159087884e7bea9ea74c745)",
  "reth-stateless",
+ "witness-generator",
  "zkboost-ethereum-el-types",
 ]
 
@@ -12110,7 +12119,7 @@ dependencies = [
 [[package]]
 name = "zkevm-metrics"
 version = "0.1.0"
-source = "git+https://github.com/eth-act/zkevm-benchmark-workload?rev=e3ac2ded0678377ec09d781f1331159e3c36633d#e3ac2ded0678377ec09d781f1331159e3c36633d"
+source = "git+https://github.com/developeruche/zkevm-benchmark-workload?branch=feat%2Frefactor-state-val-fn#75fb2512703e71864d122c26942df21e86c1117e"
 dependencies = [
  "chrono",
  "serde",

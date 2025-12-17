@@ -60,8 +60,11 @@ reth-stateless = { git = "https://github.com/paradigmxyz/reth", rev = "cfde95197
 ere-common = { git = "https://github.com/eth-act/ere", rev = "d15d36aa0a5d552a5159087884e7bea9ea74c745" }
 ere-dockerized = { git = "https://github.com/eth-act/ere", rev = "d15d36aa0a5d552a5159087884e7bea9ea74c745" }
 ere-zkvm-interface = { git = "https://github.com/eth-act/ere", rev = "d15d36aa0a5d552a5159087884e7bea9ea74c745" }
-benchmark-runner = { git = "https://github.com/eth-act/zkevm-benchmark-workload", rev = "e3ac2ded0678377ec09d781f1331159e3c36633d" }
-witness-generator = { git = "https://github.com/eth-act/zkevm-benchmark-workload", rev = "e3ac2ded0678377ec09d781f1331159e3c36633d" }
+ere-io = { git = "https://github.com/eth-act/ere", rev = "d15d36aa0a5d552a5159087884e7bea9ea74c745" }
+# benchmark-runner = { git = "https://github.com/eth-act/zkevm-benchmark-workload", rev = "e3ac2ded0678377ec09d781f1331159e3c36633d" }
+# witness-generator = { git = "https://github.com/eth-act/zkevm-benchmark-workload", rev = "e3ac2ded0678377ec09d781f1331159e3c36633d" }
+benchmark-runner = { git = "https://github.com/developeruche/zkevm-benchmark-workload", branch = "feat/refactor-state-val-fn" }
+witness-generator = { git = "https://github.com/developeruche/zkevm-benchmark-workload", branch = "feat/refactor-state-val-fn" }
 
 zkboost-client = { path = "crates/zkboost/client" }
 zkboost-server = { path = "crates/zkboost/server" }
