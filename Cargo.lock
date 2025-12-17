@@ -12016,6 +12016,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "zkboost-ethereum-el-config"
+version = "0.1.0"
+
+[[package]]
+name = "zkboost-ethereum-el-relayer"
+version = "0.1.0"
+
+[[package]]
 name = "zkboost-server"
 version = "0.1.0"
 dependencies = [

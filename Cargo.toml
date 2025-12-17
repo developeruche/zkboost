@@ -3,6 +3,8 @@ members = [
     "crates/zkboost/client",
     "crates/zkboost/server",
     "crates/zkboost/types",
+    "crates/zkboost-ethereum/el-config",
+    "crates/zkboost-ethereum/el-relayer",
 ]
 resolver = "2"
 
@@ -56,3 +58,5 @@ witness-generator = { git = "https://github.com/eth-act/zkevm-benchmark-workload
 zkboost-client = { path = "crates/zkboost/client" }
 zkboost-server = { path = "crates/zkboost/server" }
 zkboost-types = { path = "crates/zkboost/types" }
+zkboost-ethereum-el-config = { path = "crates/zkboost-ethereum/el-config" }
+zkboost-ethereum-el-relayer = { path = "crates/zkboost-ethereum/el-relayer" }
