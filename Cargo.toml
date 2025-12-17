@@ -1,8 +1,8 @@
 [workspace]
 members = [
-    "crates/client",
-    "crates/server",
-    "crates/types",
+    "crates/zkboost/client",
+    "crates/zkboost/server",
+    "crates/zkboost/types",
 ]
 resolver = "2"
 
@@ -53,6 +53,6 @@ ere-zkvm-interface = { git = "https://github.com/eth-act/ere", rev = "d15d36aa0a
 benchmark-runner = { git = "https://github.com/eth-act/zkevm-benchmark-workload", rev = "e3ac2ded0678377ec09d781f1331159e3c36633d" }
 witness-generator = { git = "https://github.com/eth-act/zkevm-benchmark-workload", rev = "e3ac2ded0678377ec09d781f1331159e3c36633d" }
 
-zkboost-client = { path = "crates/client" }
-zkboost-server = { path = "crates/server" }
-zkboost-types = { path = "crates/types" }
+zkboost-client = { path = "crates/zkboost/client" }
+zkboost-server = { path = "crates/zkboost/server" }
+zkboost-types = { path = "crates/zkboost/types" }
