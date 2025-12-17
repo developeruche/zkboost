@@ -25,7 +25,7 @@ pub enum ProgramConfig {
 
 impl ProgramConfig {
     /// Load the program from either a local path or remote URL.
-    pub fn load(&self) -> anyhow::Result<SerializedProgram> {
+    pub async fn load(&self) -> anyhow::Result<SerializedProgram> {
         let bytes = match self {
             ProgramConfig::Path(path) | ProgramConfig::ExplicitPath(PathConfig { path }) => {
                 fs::read(path).with_context(|| {
@@ -33,7 +33,8 @@ impl ProgramConfig {
                 })?
             }
             ProgramConfig::Url(UrlConfig { url }) => {
-                let response = reqwest::blocking::get(url)
+                let response = reqwest::get(url)
+                    .await
                     .with_context(|| format!("Failed to download program from URL: {url}"))?;
 
                 let status = response.status();
@@ -43,6 +44,7 @@ impl ProgramConfig {
 
                 response
                     .bytes()
+                    .await
                     .with_context(|| format!("Failed to read response bytes from URL: {url}"))?
                     .to_vec()
             }

@@ -70,7 +70,7 @@ async fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
     let config = Config::load(&cli.config)?;
 
-    let state = AppState::new(&config)?;
+    let state = AppState::new(&config).await?;
     let router = app(state);
 
     let addr: SocketAddr = format!("0.0.0.0:{}", cli.port).parse()?;

@@ -1,6 +1,6 @@
 //! Application state, initialization, and HTTP endpoints.
 
-use std::{collections::HashMap, sync::Arc};
+use std::{collections::HashMap, iter::zip, sync::Arc};
 
 use anyhow::Context;
 use axum::{
@@ -9,6 +9,7 @@ use axum::{
 };
 use ere_dockerized::DockerizedzkVM;
 use ere_zkvm_interface::zkVM;
+use futures::future::try_join_all;
 use reqwest::StatusCode;
 use tokio::sync::RwLock;
 use tower_http::trace::TraceLayer;
@@ -35,12 +36,11 @@ impl AppState {
     /// Creates a new application state from configuration.
     ///
     /// Loads all configured zkVM programs and initializes their instances.
-    pub(crate) fn new(config: &Config) -> anyhow::Result<Self> {
-        let programs = config
-            .zkvm
-            .iter()
-            .map(|zkvm_config| Ok((zkvm_config.program_id.clone(), init_zkvm(zkvm_config)?)))
-            .collect::<anyhow::Result<_>>()?;
+    pub(crate) async fn new(config: &Config) -> anyhow::Result<Self> {
+        let zkvms = try_join_all(config.zkvm.iter().map(init_zkvm)).await?;
+        let programs = zip(&config.zkvm, zkvms)
+            .map(|(config, zkvm)| (config.program_id.clone(), zkvm))
+            .collect();
         Ok(Self {
             programs: Arc::new(RwLock::new(programs)),
         })
@@ -78,8 +78,9 @@ pub(crate) fn app(state: AppState) -> Router {
 }
 
 /// Initializes a single zkVM instance from configuration.
-fn init_zkvm(config: &zkVMConfig) -> anyhow::Result<zkVMInstance> {
-    let zkvm = DockerizedzkVM::new(config.kind, config.program.load()?, config.resource.clone())
+async fn init_zkvm(config: &zkVMConfig) -> anyhow::Result<zkVMInstance> {
+    let program = config.program.load().await?;
+    let zkvm = DockerizedzkVM::new(config.kind, program, config.resource.clone())
         .with_context(|| format!("Failed to initialize DockerizedzkVM, kind {}", config.kind))?;
     Ok(zkVMInstance::new(zkvm))
 }
