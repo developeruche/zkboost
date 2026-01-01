@@ -35,7 +35,10 @@ pub(crate) fn init_metrics() -> PrometheusHandle {
         "zkboost_prove_duration_seconds",
         "Proof generation time in seconds"
     );
-    describe_histogram!("zkboost_prove_proof_bytes", "Generated proof sizes in bytes");
+    describe_histogram!(
+        "zkboost_prove_proof_bytes",
+        "Generated proof sizes in bytes"
+    );
 
     // Execute operation metrics
     describe_counter!("zkboost_execute_total", "Total execute operations");
@@ -61,9 +64,6 @@ pub(crate) fn init_metrics() -> PrometheusHandle {
         "Number of zkVM programs currently loaded"
     );
     describe_gauge!("zkboost_build_info", "Build information");
-
-    // Error metrics
-    describe_counter!("zkboost_errors_total", "Total errors by endpoint and type");
 
     handle
 }
@@ -92,12 +92,7 @@ pub(crate) fn record_request_end(endpoint: &str, method: &str, status: u16, dura
 }
 
 /// Record a prove operation result.
-pub(crate) fn record_prove(
-    program_id: &str,
-    success: bool,
-    duration: Duration,
-    proof_size: usize,
-) {
+pub(crate) fn record_prove(program_id: &str, success: bool, duration: Duration, proof_size: usize) {
     let status = if success { "success" } else { "error" };
     counter!(
         "zkboost_prove_total",
@@ -155,17 +150,6 @@ pub(crate) fn record_verify(program_id: &str, verified: bool, duration: Duration
         "program_id" => program_id.to_string()
     )
     .record(duration.as_secs_f64());
-}
-
-/// Record an error occurrence.
-#[allow(dead_code)]
-pub(crate) fn record_error(endpoint: &str, error_type: &str) {
-    counter!(
-        "zkboost_errors_total",
-        "endpoint" => endpoint.to_string(),
-        "error_type" => error_type.to_string()
-    )
-    .increment(1);
 }
 
 /// Set the number of loaded programs gauge.
