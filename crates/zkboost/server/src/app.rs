@@ -19,10 +19,12 @@ use tower_http::trace::TraceLayer;
 use zkboost_server_config::{Config, zkVMConfig};
 use zkboost_types::ProgramID;
 
-use crate::app::{
-    execute::execute_program, info::get_server_info, prove::prove_program, verify::verify_proof,
+use crate::{
+    app::{
+        execute::execute_program, info::get_server_info, prove::prove_program, verify::verify_proof,
+    },
+    metrics::http_metrics_middleware,
 };
-use crate::metrics::http_metrics_middleware;
 
 mod execute;
 mod info;

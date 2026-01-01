@@ -5,8 +5,7 @@ use ere_zkvm_interface::{Input, zkVM};
 use tracing::instrument;
 use zkboost_types::{ExecuteRequest, ExecuteResponse};
 
-use crate::app::AppState;
-use crate::metrics::record_execute;
+use crate::{app::AppState, metrics::record_execute};
 
 /// HTTP handler for the `/execute` endpoint.
 ///
@@ -35,7 +34,12 @@ pub(crate) async fn execute_program(
         )
     })?;
 
-    record_execute(&program_id.0, true, start.elapsed(), report.total_num_cycles);
+    record_execute(
+        &program_id.0,
+        true,
+        start.elapsed(),
+        report.total_num_cycles,
+    );
 
     Ok(Json(ExecuteResponse {
         program_id,

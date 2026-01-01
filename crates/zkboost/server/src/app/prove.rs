@@ -5,8 +5,7 @@ use ere_zkvm_interface::{Input, Proof, ProofKind};
 use tracing::instrument;
 use zkboost_types::{ProveRequest, ProveResponse};
 
-use crate::app::AppState;
-use crate::metrics::record_prove;
+use crate::{app::AppState, metrics::record_prove};
 
 /// HTTP handler for the `/prove` endpoint.
 ///
@@ -27,16 +26,17 @@ pub(crate) async fn prove_program(
 
     let input = Input::new().with_stdin(req.input);
 
-    let (public_values, proof, report) = program
-        .vm
-        .prove(&input, ProofKind::Compressed)
-        .map_err(|e| {
-            record_prove(&program_id.0, false, start.elapsed(), 0);
-            (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                format!("Failed to generate proof: {e}"),
-            )
-        })?;
+    let (public_values, proof, report) =
+        program
+            .vm
+            .prove(&input, ProofKind::Compressed)
+            .map_err(|e| {
+                record_prove(&program_id.0, false, start.elapsed(), 0);
+                (
+                    StatusCode::INTERNAL_SERVER_ERROR,
+                    format!("Failed to generate proof: {e}"),
+                )
+            })?;
 
     let Proof::Compressed(proof) = proof else {
         record_prove(&program_id.0, false, start.elapsed(), 0);

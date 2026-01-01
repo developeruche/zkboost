@@ -5,8 +5,7 @@ use ere_zkvm_interface::Proof;
 use tracing::instrument;
 use zkboost_types::{VerifyRequest, VerifyResponse};
 
-use crate::app::AppState;
-use crate::metrics::record_verify;
+use crate::{app::AppState, metrics::record_verify};
 
 /// HTTP handler for the `/verify` endpoint.
 ///
