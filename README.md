@@ -15,6 +15,7 @@ zkboost is an API wrapper on top of [Ere](https://github.com/eth-act/ere) allowi
 - [Manual Build](#manual-build)
   - [Prerequisites](#prerequisites)
 - [API](#api)
+- [Observability](#observability)
 - [Supported Backends](#supported-backends)
 - [Contributing](#contributing)
 - [License](#license)
@@ -23,6 +24,7 @@ zkboost is an API wrapper on top of [Ere](https://github.com/eth-act/ere) allowi
 
 * **REST API** for execution, proof generation, and verification.
 * **Pluggable Backend Support**: Leverages `Ere` for backend integration.
+* **Prometheus Metrics**: Built-in observability via `/metrics` endpoint.
 
 ## Quick Start
 
@@ -54,6 +56,29 @@ The following endpoints are available:
 | `/execute` | `POST` | Run program and get execution metrics    |
 | `/prove`   | `POST` | Generate proof for a program with inputs |
 | `/verify`  | `POST` | Verify a previously generated proof      |
+| `/metrics` | `GET`  | Prometheus metrics endpoint              |
+
+## Observability
+
+zkboost exposes Prometheus-compatible metrics at `/metrics` for monitoring with Prometheus and Grafana.
+
+**Available metrics:**
+
+| Metric | Type | Description |
+| ------ | ---- | ----------- |
+| `zkboost_http_requests_total` | Counter | Total HTTP requests by endpoint, method, status |
+| `zkboost_http_request_duration_seconds` | Histogram | Request latency by endpoint |
+| `zkboost_http_requests_in_flight` | Gauge | Currently processing requests |
+| `zkboost_prove_total` | Counter | Prove operations by program and status |
+| `zkboost_prove_duration_seconds` | Histogram | Proof generation time |
+| `zkboost_prove_proof_bytes` | Histogram | Generated proof sizes |
+| `zkboost_execute_total` | Counter | Execute operations by program and status |
+| `zkboost_execute_duration_seconds` | Histogram | Execution time |
+| `zkboost_execute_cycles_total` | Histogram | zkVM cycle counts |
+| `zkboost_verify_total` | Counter | Verify operations by program and result |
+| `zkboost_verify_duration_seconds` | Histogram | Verification time |
+| `zkboost_programs_loaded` | Gauge | Number of loaded zkVM programs |
+| `zkboost_build_info` | Gauge | Build version info |
 
 ## Supported Backends
 
