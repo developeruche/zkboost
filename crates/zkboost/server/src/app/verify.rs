@@ -1,9 +1,12 @@
+use std::time::Instant;
+
 use axum::{Json, extract::State, http::StatusCode};
 use ere_zkvm_interface::Proof;
 use tracing::instrument;
 use zkboost_types::{VerifyRequest, VerifyResponse};
 
 use crate::app::AppState;
+use crate::metrics::record_verify;
 
 /// HTTP handler for the `/verify` endpoint.
 ///
@@ -13,12 +16,17 @@ pub(crate) async fn verify_proof(
     State(state): State<AppState>,
     Json(req): Json<VerifyRequest>,
 ) -> Result<Json<VerifyResponse>, (StatusCode, String)> {
+    let start = Instant::now();
+    let program_id = req.program_id.clone();
+
     // Check if the program_id is correct
     let programs = state.programs.read().await;
 
-    let program = programs
-        .get(&req.program_id)
-        .ok_or((StatusCode::NOT_FOUND, "Program not found".to_string()))?;
+    let program = programs.get(&program_id).ok_or_else(|| {
+        // Record as failed verification for program not found
+        record_verify(&program_id.0, false, start.elapsed());
+        (StatusCode::NOT_FOUND, "Program not found".to_string())
+    })?;
 
     // Verify the proof
     let (verified, public_values, failure_reason) =
@@ -35,8 +43,10 @@ pub(crate) async fn verify_proof(
             }
         };
 
+    record_verify(&program_id.0, verified, start.elapsed());
+
     Ok(Json(VerifyResponse {
-        program_id: req.program_id,
+        program_id,
         verified,
         public_values,
         failure_reason,
