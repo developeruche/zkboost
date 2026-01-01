@@ -1,9 +1,12 @@
+use std::time::Instant;
+
 use axum::{Json, extract::State, http::StatusCode};
 use ere_zkvm_interface::{Input, Proof, ProofKind};
 use tracing::instrument;
 use zkboost_types::{ProveRequest, ProveResponse};
 
 use crate::app::AppState;
+use crate::metrics::record_prove;
 
 /// HTTP handler for the `/prove` endpoint.
 ///
@@ -13,32 +16,37 @@ pub(crate) async fn prove_program(
     State(state): State<AppState>,
     Json(req): Json<ProveRequest>,
 ) -> Result<Json<ProveResponse>, (StatusCode, String)> {
+    let start = Instant::now();
     let program_id = req.program_id.clone();
     let programs = state.programs.read().await;
 
-    let program = programs
-        .get(&program_id)
-        .ok_or((StatusCode::NOT_FOUND, "Program not found".to_string()))?;
+    let program = programs.get(&program_id).ok_or_else(|| {
+        record_prove(&program_id.0, false, start.elapsed(), 0);
+        (StatusCode::NOT_FOUND, "Program not found".to_string())
+    })?;
 
     let input = Input::new().with_stdin(req.input);
 
-    let (public_values, proof, report) =
-        program
-            .vm
-            .prove(&input, ProofKind::Compressed)
-            .map_err(|e| {
-                (
-                    StatusCode::INTERNAL_SERVER_ERROR,
-                    format!("Failed to generate proof: {e}"),
-                )
-            })?;
+    let (public_values, proof, report) = program
+        .vm
+        .prove(&input, ProofKind::Compressed)
+        .map_err(|e| {
+            record_prove(&program_id.0, false, start.elapsed(), 0);
+            (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                format!("Failed to generate proof: {e}"),
+            )
+        })?;
 
     let Proof::Compressed(proof) = proof else {
+        record_prove(&program_id.0, false, start.elapsed(), 0);
         return Err((
             StatusCode::INTERNAL_SERVER_ERROR,
             format!("Unexpected proof kind: {:?}", proof.kind()),
         ));
     };
+
+    record_prove(&program_id.0, true, start.elapsed(), proof.len());
 
     Ok(Json(ProveResponse {
         program_id,
