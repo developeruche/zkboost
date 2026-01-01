@@ -29,4 +29,4 @@ COPY --from=builder /app/target/release/zkboost-server /app/zkboost-server
 
 # Expose port 3000 to the outside world (This is the port that the rust code currently listens on)
 EXPOSE 3000
-CMD ["/app/zkboost-server"]
+CMD ["/app/zkboost-server", "--config", "/app/config.toml"]
