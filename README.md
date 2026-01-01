@@ -62,7 +62,23 @@ The following endpoints are available:
 
 zkboost exposes Prometheus-compatible metrics at `/metrics` for monitoring with Prometheus and Grafana.
 
-**Available metrics:**
+### Docker Compose with Grafana
+
+The Docker Compose setup includes pre-configured Prometheus and Grafana with a zkboost dashboard:
+
+```bash
+cd docker && docker-compose up -d
+```
+
+| Service    | URL                     | Credentials     |
+| ---------- | ----------------------- | --------------- |
+| zkboost    | http://localhost:3000   | -               |
+| Prometheus | http://localhost:9090   | -               |
+| Grafana    | http://localhost:3001   | admin / admin   |
+
+The zkboost dashboard is auto-provisioned and available at Grafana > Dashboards > zkboost.
+
+### Available Metrics
 
 | Metric | Type | Description |
 | ------ | ---- | ----------- |
