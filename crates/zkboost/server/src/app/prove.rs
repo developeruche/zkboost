@@ -53,15 +53,12 @@ mod tests {
     use axum::{Json, extract::State, http::StatusCode};
     use zkboost_types::{ProgramID, ProveRequest};
 
-    use crate::{
-        app::{AppState, prove::prove_program},
-        mock::mock_app_state,
-    };
+    use crate::{app::prove::prove_program, mock::mock_app_state};
 
     #[tokio::test]
     async fn test_prove_success() {
         let program_id = ProgramID::from("mock_program_id");
-        let state = mock_app_state(&program_id);
+        let state = mock_app_state(Some(&program_id));
 
         let request = ProveRequest {
             program_id: program_id.clone(),
@@ -76,7 +73,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_prove_program_not_found() {
-        let state = AppState::default();
+        let state = mock_app_state(None);
 
         let request = ProveRequest {
             program_id: ProgramID::from("non_existent"),

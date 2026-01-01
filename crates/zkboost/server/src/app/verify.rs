@@ -49,14 +49,14 @@ mod tests {
     use zkboost_types::{ProgramID, ProveRequest, VerifyRequest};
 
     use crate::{
-        app::{AppState, prove::prove_program, verify::verify_proof},
+        app::{prove::prove_program, verify::verify_proof},
         mock::mock_app_state,
     };
 
     #[tokio::test]
     async fn test_verify_valid_proof() {
         let program_id = ProgramID::from("mock_program_id");
-        let state = mock_app_state(&program_id);
+        let state = mock_app_state(Some(&program_id));
 
         let request = ProveRequest {
             program_id: program_id.clone(),
@@ -84,7 +84,7 @@ mod tests {
     #[tokio::test]
     async fn test_verify_invalid_proof() {
         let program_id = ProgramID::from("mock_program_id");
-        let state = mock_app_state(&program_id);
+        let state = mock_app_state(Some(&program_id));
 
         let request = VerifyRequest {
             program_id: program_id.clone(),
@@ -101,7 +101,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_verify_program_not_found() {
-        let state = AppState::default();
+        let state = mock_app_state(None);
 
         let request = VerifyRequest {
             program_id: ProgramID::from("non_existent"),
