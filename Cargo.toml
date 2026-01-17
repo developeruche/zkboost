@@ -71,15 +71,14 @@ url = "2.5.7"
 reth-stateless = { git = "https://github.com/paradigmxyz/reth", rev = "cfde951976bfa9100a6d9f806e06fb539ae25241" }
 
 # ere
-ere-common = { git = "https://github.com/eth-act/ere", rev = "ec75f8a26657ddbf7efc44cdb3167fff4f55fe27" }
-ere-dockerized = { git = "https://github.com/eth-act/ere", rev = "ec75f8a26657ddbf7efc44cdb3167fff4f55fe27" }
-ere-io = { git = "https://github.com/eth-act/ere", rev = "ec75f8a26657ddbf7efc44cdb3167fff4f55fe27" }
-ere-zkvm-interface = { git = "https://github.com/eth-act/ere", rev = "ec75f8a26657ddbf7efc44cdb3167fff4f55fe27" }
+ere-common = { git = "https://github.com/eth-act/ere", rev = "a9fb04dea82e658b900bf09fdf8a816fa4eec59b" }
+ere-dockerized = { git = "https://github.com/eth-act/ere", rev = "a9fb04dea82e658b900bf09fdf8a816fa4eec59b" }
+ere-server = { git = "https://github.com/eth-act/ere", rev = "a9fb04dea82e658b900bf09fdf8a816fa4eec59b" }
+ere-zkvm-interface = { git = "https://github.com/eth-act/ere", rev = "a9fb04dea82e658b900bf09fdf8a816fa4eec59b" }
 
 # ere-guests
-guest = { git = "https://github.com/eth-act/ere-guests", tag = "v0.1.0" }
-stateless-validator-ethrex = { git = "https://github.com/eth-act/ere-guests", tag = "v0.1.0", features = ["host"] }
-stateless-validator-reth = { git = "https://github.com/eth-act/ere-guests", tag = "v0.1.0", features = ["host"] }
+stateless-validator-ethrex = { git = "https://github.com/eth-act/ere-guests", tag = "v0.2.0", features = ["host"] }
+stateless-validator-reth = { git = "https://github.com/eth-act/ere-guests", tag = "v0.2.0", features = ["host"] }
 
 # local
 zkboost-client = { path = "crates/zkboost/client" }
