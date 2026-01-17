@@ -4,3 +4,4 @@ notes.md
 .vscode
 test-fixture
 *.log
+.DS_Store
