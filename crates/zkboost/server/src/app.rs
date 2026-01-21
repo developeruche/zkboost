@@ -161,9 +161,10 @@ async fn init_zkvm(config: &zkVMConfig) -> anyhow::Result<zkVMInstance> {
             kind,
             resource,
             program,
+            publisher_public_key,
             ..
         } => {
-            let program = program.load().await?;
+            let program = program.load(publisher_public_key.as_deref()).await?;
             let zkvm = DockerizedzkVM::new(*kind, program, resource.clone())
                 .with_context(|| format!("Failed to initialize DockerizedzkVM, kind {kind}"))?;
             Ok(zkVMInstance::docker(zkvm))

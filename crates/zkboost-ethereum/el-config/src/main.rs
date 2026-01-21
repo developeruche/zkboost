@@ -64,6 +64,7 @@ async fn main() -> anyhow::Result<()> {
             },
             program_id: format!("{}-{}", args.el, args.zkvm).into(),
             program,
+            publisher_public_key: None,
         }],
     };
 
