@@ -83,7 +83,7 @@ impl ProgramConfig {
             .with_context(|| format!("Failed to read response bytes from URL: {url}"))?
             .to_vec();
 
-        let sig_url = format!("{}.minisig", url);
+        let sig_url = format!("{url}.minisig");
         let signature = download_text(&sig_url).await.ok();
 
         Ok((program_bytes, signature))

@@ -56,9 +56,9 @@ mod tests {
     #[tokio::test]
     async fn test_verify_minisig_downloaded_airbender() {
         let base_url = "https://github.com/eth-act/ere-guests/releases/download/v0.4.0";
-        let pub_key_url = format!("{}/minisign.pub", base_url);
-        let sig_url = format!("{}/block-encoding-length-airbender.minisig", base_url);
-        let program_url = format!("{}/block-encoding-length-airbender", base_url);
+        let pub_key_url = format!("{base_url}/minisign.pub");
+        let sig_url = format!("{base_url}/block-encoding-length-airbender.minisig");
+        let program_url = format!("{base_url}/block-encoding-length-airbender");
 
         // helper to download text
         async fn download_text(url: &str) -> String {
@@ -91,8 +91,8 @@ mod tests {
     #[tokio::test]
     async fn test_verify_minisig_airbender_hardcoded_key() {
         let base_url = "https://github.com/eth-act/ere-guests/releases/download/v0.4.0";
-        let sig_url = format!("{}/block-encoding-length-airbender.minisig", base_url);
-        let program_url = format!("{}/block-encoding-length-airbender", base_url);
+        let sig_url = format!("{base_url}/block-encoding-length-airbender.minisig");
+        let program_url = format!("{base_url}/block-encoding-length-airbender");
 
         let pub_key_str = "RWTsNA0kZFhw19A26aujYun4hv4RraCnEYDehrgEG6NnCjmjkr9/+KGy";
 
