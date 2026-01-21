@@ -78,10 +78,7 @@ impl ProgramConfig {
             .to_vec();
 
         let sig_url = format!("{}.minisig", url);
-        let signature = match download_text(&sig_url).await {
-            Ok(sig) => Some(sig),
-            Err(_) => None,
-        };
+        let signature = download_text(&sig_url).await.ok();
 
         Ok((program_bytes, signature))
     }
@@ -97,10 +94,10 @@ async fn download_text(url: &str) -> anyhow::Result<String> {
         bail!("Failed to download text from URL: {url} (HTTP status: {status})");
     }
 
-    Ok(response
+    response
         .text()
         .await
-        .with_context(|| format!("Failed to read response text from URL: {url}"))?)
+        .with_context(|| format!("Failed to read response text from URL: {url}"))
 }
 
 
