@@ -91,6 +91,7 @@ impl GuestLoader {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use zkboost_server_config::{Config, zkVMConfig};
 
     #[tokio::test]
     async fn test_verify_minisig_downloaded_airbender() {
@@ -145,5 +146,49 @@ mod tests {
             "Verification failed for Airbender (hardcoded key): {:?}",
             result.err()
         );
+    }
+
+    #[tokio::test]
+    async fn test_config_program_load_integration() {
+        let toml = r#"
+            [[zkvm]]
+            kind = "risc0"
+            resource = "cpu"
+            program_id = "airbender"
+            program = { url = "https://github.com/eth-act/ere-guests/releases/download/v0.4.0/block-encoding-length-airbender" }
+            program_signature = { url = "https://github.com/eth-act/ere-guests/releases/download/v0.4.0/block-encoding-length-airbender.minisig" }
+            publisher_public_key = "RWTsNA0kZFhw19A26aujYun4hv4RraCnEYDehrgEG6NnCjmjkr9/+KGy"
+
+        "#;
+
+        let config = Config::from_toml_str(toml).expect("Failed to parse config");
+        match &config.zkvm[0] {
+            zkVMConfig::Docker {
+                program,
+                publisher_public_key,
+                program_signature,
+                ..
+            } => {
+                // Load the program using ProgramConfig
+                let result = program.load().await;
+                assert!(
+                    result.is_ok(),
+                    "Failed to load program: {:?}",
+                    result.err()
+                );
+
+                // Verify the program with GuestLoader
+                if let (Some(sig_config), Some(pub_key)) = (program_signature, publisher_public_key) {
+                    let loader = GuestLoader::new();
+                    let verify_result = loader.load_and_verify(program, &sig_config, pub_key).await;
+                    assert!(
+                        verify_result.is_ok(),
+                        "Failed to verify program: {:?}",
+                        verify_result.err()
+                    );
+                }
+            }
+            _ => panic!("Unexpected config type"),
+        }
     }
 }
