@@ -106,6 +106,7 @@ async fn generate_config(args: &Args, workspace: &Path) -> anyhow::Result<String
             program_id: args.program_id().into(),
             program,
             publisher_public_key: None,
+            program_signature: None,
         }],
     };
 
