@@ -72,7 +72,7 @@ async fn fetch_artifact_bytes(source: &str, client: &Client) -> Result<Vec<u8>> 
         let path = PathBuf::from(source);
         let bytes = fs::read(&path)
             .await
-            .with_context(|| format!("Failed to read file: {:?}", path))?;
+            .with_context(|| format!("Failed to read file: {path:?}"))?;
         Ok(bytes)
     }
 }
@@ -86,7 +86,7 @@ async fn fetch_artifact_string(source: &str, client: &Client) -> Result<String> 
         let path = PathBuf::from(source);
         let text = fs::read_to_string(&path)
             .await
-            .with_context(|| format!("Failed to read file: {:?}", path))?;
+            .with_context(|| format!("Failed to read file: {path:?}"))?;
         Ok(text)
     }
 }
