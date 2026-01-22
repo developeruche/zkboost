@@ -178,7 +178,7 @@ mod tests {
                 if let (Some(sig_config), Some(pub_key)) = (program_signature, publisher_public_key)
                 {
                     let loader = GuestLoader::new();
-                    let verify_result = loader.load_and_verify(program, &sig_config, pub_key).await;
+                    let verify_result = loader.load_and_verify(program, sig_config, pub_key).await;
                     assert!(
                         verify_result.is_ok(),
                         "Failed to verify program: {:?}",
